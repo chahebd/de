@@ -10,6 +10,15 @@ AWS_ACCESS_KEY_ID = Variable.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = Variable.get("AWS_SECRET_ACCESS_KEY")
 
 
+def get_s3_client():
+    session = boto3.session.Session()
+    s3_client = session.client(service_name='s3',
+                               endpoint_url='https://storage.yandexcloud.net',
+                               aws_access_key_id=AWS_ACCESS_KEY_ID,
+                               aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    return s3_client
+
+
 def save_batches(execution_date):
 #инкрементальная загрузка батчей
     os.makedirs('/data/batches', exist_ok=True)
@@ -18,11 +27,7 @@ def save_batches(execution_date):
     execution_date = datetime.strptime(execution_date, "%Y-%m-%dT%H:%M:%S%z").date() - timedelta(days=1)
     df = pd.DataFrame()
 
-    session = boto3.session.Session()
-    s3_client = session.client(service_name='s3',
-            endpoint_url='https://storage.yandexcloud.net',
-            aws_access_key_id=AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    s3_client = get_s3_client()
 
     if len(files_names) != 0:
         batch_num = max([int(name[19:-4]) for name in files_names])
@@ -50,11 +55,7 @@ def save_currencies(execution_date):
     os.makedirs('/data/currencies', exist_ok=True)
     execution_date = datetime.strptime(execution_date, "%Y-%m-%dT%H:%M:%S%z").date() - timedelta(days=1)
 
-    session = boto3.session.Session()
-    s3_client = session.client(service_name='s3',
-            endpoint_url='https://storage.yandexcloud.net',
-            aws_access_key_id=AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    s3_client = get_s3_client()
     
     s3_client.download_file(Bucket='final-project',
                             Key='currencies_history.csv',

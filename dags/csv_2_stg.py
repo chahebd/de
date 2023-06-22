@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 from airflow.models import Variable
 import pandas as pd
 import vertica_python
-import pandas as pd
 
 
 def insert_to_stg(execution_date, **conn_info_vert):
@@ -26,8 +25,3 @@ def insert_to_stg(execution_date, **conn_info_vert):
 
         curs.execute(insert_cur)	
         conn.commit()
-
-
-
-        """        COPY HZBASILYANDEXRU__STAGING.currencies (date_update,currency_code,currency_code_with,currency_code_div) 
-        FROM LOCAL \'\data\\{str(execution_date)}\\currencies.csv\' DELIMITER \',\';"""
