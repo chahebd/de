@@ -13,7 +13,7 @@ AWS_SECRET_ACCESS_KEY = Variable.get("AWS_SECRET_ACCESS_KEY")
 def get_s3_client():
     session = boto3.session.Session()
     s3_client = session.client(service_name='s3',
-                               endpoint_url='https://storage.yandexcloud.net',
+                               endpoint_url='https://url.net',
                                aws_access_key_id=AWS_ACCESS_KEY_ID,
                                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     return s3_client
