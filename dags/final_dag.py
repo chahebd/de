@@ -16,7 +16,6 @@ conn_info_vert = {'host': Variable.get("host"),
                 'port': Variable.get("port"),
                 'user': Variable.get("user"),       
                 'password': Variable.get("password"),
-                #'database': Variable.get("database"),
                 'autocommit': True
 }
 
@@ -51,7 +50,7 @@ def load_data_dag():
     insert_s = insert_stg(execution_date="{{ execution_date }}")
     insert_c = insert_cdm(execution_date="{{ execution_date }}")
 
-    load_b >> load_c >> insert_s >> insert_c # type: ignore
+    load_b >> load_c >> insert_s >> insert_c 
 
 
 data_dag = load_data_dag()

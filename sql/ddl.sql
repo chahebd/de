@@ -1,4 +1,4 @@
-create table HZBASILYANDEXRU__STAGING.transactions (
+create table transactions (
 	operation_id uuid NOT NULL,
 	account_number_from int NOT NULL,
 	account_number_to int NOT NULL,
@@ -41,7 +41,7 @@ segmented by hash(transaction_dt)
 all nodes;
 
 
-create table HZBASILYANDEXRU__STAGING.currencies (
+create table currencies (
 	date_update TIMESTAMP(3) NOT NULL,
 	currency_code int NOT NULL,
 	currency_code_with int NOT NULL,
@@ -69,7 +69,7 @@ segmented by hash(date_update)
 all nodes;
 
 
-create table if not exists HZBASILYANDEXRU__DWH.global_metrics (
+create table if not exists global_metrics (
     date_update date NOT NULL,
     currency_from int NOT NULL,
     amount_total numeric(18, 2) NOT NULL,

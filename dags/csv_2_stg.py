@@ -11,7 +11,7 @@ def insert_to_stg(execution_date, **conn_info_vert):
     with vertica_python.connect(**conn_info_vert) as conn:
         curs = conn.cursor()
         insert_tr = f"""
-        COPY HZBASILYANDEXRU__STAGING.transactions (operation_id, account_number_from, 
+        COPY transactions (operation_id, account_number_from, 
                     account_number_to, currency_code, country, status, transaction_type,
                     amount, transaction_dt) 
         FROM LOCAL \'/data//{str(execution_date)}//batch.csv\' DELIMITER \',\';
@@ -20,7 +20,7 @@ def insert_to_stg(execution_date, **conn_info_vert):
         conn.commit()
 
         insert_cur = f""" 
-        COPY HZBASILYANDEXRU__STAGING.currencies (currency_code,currency_code_with,date_update,currency_with_div) 
+        COPY currencies (currency_code,currency_code_with,date_update,currency_with_div) 
         FROM LOCAL \'/data//{str(execution_date)}//currencies.csv\' DELIMITER \',\';"""
 
         curs.execute(insert_cur)	
