@@ -25,7 +25,7 @@ conn_info_vert = {'host': Variable.get("host"),
     end_date=datetime(2022, 10, 31),
     catchup=True,
     concurrency=1,
-    tags=['final_proj'],
+    tags=['transaction_proj'],
 )
 def load_data_dag():
 
